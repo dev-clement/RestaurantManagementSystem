@@ -1,0 +1,11 @@
+services:
+  db:
+    container_name: postgres0
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: ${pg_user}
+      POSTGRES_PASSWORD: ${pg_password}
+    ports:
+      - "5432:${pg_port}"
+    volumes:
+      - ./db:/var/lib/postgresql/data
