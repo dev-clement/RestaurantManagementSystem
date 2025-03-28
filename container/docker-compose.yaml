@@ -1,11 +1,18 @@
 services:
   db:
-    container_name: postgres0
     image: postgres:alpine
+    container_name: postgres
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data/
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_USER: ${pg_user}
       POSTGRES_PASSWORD: ${pg_password}
     ports:
       - "5432:${pg_port}"
-    volumes:
-      - ./db:/var/lib/postgresql/data
+    networks:
+      - postgres
+networks:
+  postgres:
+volumes:
+  postgresql_data:
